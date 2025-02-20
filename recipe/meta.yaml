@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/compressed-tensors-{{ version }}.tar.gz
-  sha256: 3cf5cd637f0186c184dd5bbbbf941356b1225199b49c6a45bf0909d65907f686
+  sha256: 48f3ff5d123cc7536d157fc60e4c5a36fd80b620e60e5d89386fa5ce5b327c4c
 
 build:
   noarch: python
