@@ -27,9 +27,6 @@ requirements:
     - pytorch >=1.7.0
     - transformers
     - pydantic >=2.0
-    #- safetensors
-    #- transformers
-    #- transformer-utils
 
 test:
   imports:
@@ -41,10 +38,18 @@ test:
     - pip
 
 about:
-  home: https://github.com/neuralmagic/compressed-tensors
+  home: https://github.com/vllm-project/compressed-tensors
   summary: Library for utilization of compressed safetensors of neural network models
+  description: |
+    The compressed-tensors library extends the safetensors format, providing a
+    versatile and efficient way to store and manage compressed tensor data. This
+    library supports various quantization and sparsity schemes, making it a
+    unified format for handling different model optimizations like GPTQ, AWQ,
+    SmoothQuant, INT8, FP8, SparseGPT, and more.
   license: Apache-2.0
   license_file: LICENSE
+  doc_url: https://github.com/vllm-project/compressed-tensors
+  dev_url: https://github.com/vllm-project/compressed-tensors
 
 extra:
   anaconda-services:
