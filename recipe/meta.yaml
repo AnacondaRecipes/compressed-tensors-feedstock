@@ -1,26 +1,30 @@
 {% set name = "compressed-tensors" %}
-{% set version = "0.9.1" %}
+{% set version = "0.10.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/compressed-tensors-{{ version }}.tar.gz
-  sha256: 3cf5cd637f0186c184dd5bbbbf941356b1225199b49c6a45bf0909d65907f686
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: 6de13ac535d7ffdd8890fad3d229444c33076170acaa8fab6bab8ecfa96c1d8f
 
 build:
-  noarch: python
+  skip: true # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - setuptools
+    # pyproject.toml calls for setuptools-scm 8.2.0, but there isn't a version of that available on the main conda channel.
+    - setuptools-scm >=8.2.0,<9.0.0
     - pip
+    - wheel
+    - pytorch >=1.7.0
   run:
-    - python >={{ python_min }}
+    - python
     - pytorch >=1.7.0
     - transformers
     - pydantic >=2.0
@@ -31,15 +35,28 @@ test:
   commands:
     - pip check
   requires:
-    - python {{ python_min }}
     - pip
 
 about:
-  home: https://github.com/neuralmagic/compressed-tensors
+  home: https://github.com/vllm-project/compressed-tensors
   summary: Library for utilization of compressed safetensors of neural network models
+  description: |
+    The compressed-tensors library extends the safetensors format, providing a
+    versatile and efficient way to store and manage compressed tensor data. This
+    library supports various quantization and sparsity schemes, making it a
+    unified format for handling different model optimizations like GPTQ, AWQ,
+    SmoothQuant, INT8, FP8, SparseGPT, and more.
   license: Apache-2.0
   license_file: LICENSE
+  doc_url: https://github.com/vllm-project/compressed-tensors
+  dev_url: https://github.com/vllm-project/compressed-tensors
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/49522
+    reason: Dependency for vllm
+  recipe-maintainers:
+    - ianaobi
+    - bkreider
   recipe-maintainers:
     - maresb
