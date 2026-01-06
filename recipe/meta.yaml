@@ -10,7 +10,7 @@ source:
   sha256: 6de13ac535d7ffdd8890fad3d229444c33076170acaa8fab6bab8ecfa96c1d8f
 
 build:
-  skip: true # [ py<310 ]
+  skip: true # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
@@ -19,7 +19,7 @@ requirements:
     - python
     - setuptools
     # pyproject.toml calls for setuptools-scm 8.2.0, but there isn't a version of that available on the main conda channel.
-    - setuptools-scm ==8.2.1
+    - setuptools-scm >=8.2.0,<9.0.0
     - pip
     - wheel
     - pytorch >=1.7.0
@@ -35,7 +35,6 @@ test:
   commands:
     - pip check
   requires:
-    - python
     - pip
 
 about:
