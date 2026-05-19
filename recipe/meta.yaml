@@ -1,5 +1,5 @@
 {% set name = "compressed-tensors" %}
-{% set version = "0.10.2" %}
+{% set version = "0.15.0.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 6de13ac535d7ffdd8890fad3d229444c33076170acaa8fab6bab8ecfa96c1d8f
+  sha256: a8e93054e8a5ec49c980b09ed36c4c1249b4a8ee167920a8e461c4da26e78d99
 
 build:
   skip: true # [py<310]
@@ -26,8 +26,13 @@ requirements:
   run:
     - python
     - pytorch >=1.7.0
-    - transformers
+    - transformers >=4.45.0
     - pydantic >=2.0
+    - loguru
+    # Eager runtime import in compressed_tensors/offload/load.py — not listed
+    # in upstream `requires_dist` but required at import time of the top-level
+    # `compressed_tensors` package.
+    - psutil
 
 test:
   imports:
@@ -47,6 +52,7 @@ about:
     unified format for handling different model optimizations like GPTQ, AWQ,
     SmoothQuant, INT8, FP8, SparseGPT, and more.
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
   license_family: Apache
   doc_url: https://github.com/vllm-project/compressed-tensors
