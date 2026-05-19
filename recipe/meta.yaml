@@ -29,6 +29,10 @@ requirements:
     - transformers >=4.45.0
     - pydantic >=2.0
     - loguru
+    # Eager runtime import in compressed_tensors/offload/load.py — not listed
+    # in upstream `requires_dist` but required at import time of the top-level
+    # `compressed_tensors` package.
+    - psutil
 
 test:
   imports:
@@ -48,6 +52,7 @@ about:
     unified format for handling different model optimizations like GPTQ, AWQ,
     SmoothQuant, INT8, FP8, SparseGPT, and more.
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
   doc_url: https://github.com/vllm-project/compressed-tensors
   dev_url: https://github.com/vllm-project/compressed-tensors
