@@ -1,5 +1,5 @@
 {% set name = "compressed-tensors" %}
-{% set version = "0.15.0.1" %}
+{% set version = "0.17.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: a8e93054e8a5ec49c980b09ed36c4c1249b4a8ee167920a8e461c4da26e78d99
+  sha256: 15c20d06bdbcf35b51fc99fd125e7b9be1e1855567c33b7a46dfac26ad6fb126
 
 build:
-  skip: true # [py<310]
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
@@ -19,12 +19,13 @@ requirements:
     - python
     - setuptools
     # pyproject.toml calls for setuptools-scm 8.2.0, but there isn't a version of that available on the main conda channel.
-    - setuptools-scm >=8.2.0,<9.0.0
+    - setuptools-scm ==8.2.0
     - pip
     - wheel
+    - pytorch {{ pytorch }}
   run:
     - python
-    - pytorch >=1.7.0
+    - pytorch >=2.10.0
     - transformers >=4.45.0
     - pydantic >=2.0
     - loguru
