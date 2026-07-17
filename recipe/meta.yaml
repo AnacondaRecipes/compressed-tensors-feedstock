@@ -19,10 +19,9 @@ requirements:
     - python
     - setuptools
     # pyproject.toml calls for setuptools-scm 8.2.0, but there isn't a version of that available on the main conda channel.
-    - setuptools-scm ==8.2.0
+    - setuptools-scm >=8.2,<9.0
     - pip
     - wheel
-    - pytorch {{ pytorch }}
   run:
     - python
     - pytorch >=2.10.0
